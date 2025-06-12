@@ -41,7 +41,7 @@ async def test_fill_then_drain(dut):
 
     dut._log.info(f"FIFO depth: {FIFO_DEPTH}, Writing {len(test_data)} elements.")
 
-    # === WRITE PHASE ===
+    # Write until full
     for val in test_data:
         while dut.o_wfull.value:
             await RisingEdge(dut.i_wclk)
@@ -60,7 +60,7 @@ async def test_fill_then_drain(dut):
 
     assert dut.o_wfull.value == 1, "FIFO should be full after writing FIFO_DEPTH elements"
 
-    # === READ PHASE ===
+    # Read until empty
     read_data = []
     for _ in range(FIFO_DEPTH):
         while dut.o_rempty.value:
@@ -80,6 +80,7 @@ async def test_fill_then_drain(dut):
     assert dut.o_rempty.value == 1, "FIFO should be empty after reading everything"
     assert read_data == test_data, f"Data mismatch!\nExpected: {test_data}\nGot: {read_data}"
 
+# Simultaneous reads and writes, use async drivers
 @cocotb.test()
 async def test_simultaneous_rw(dut):
     """Test simultaneous read/write operations with random data"""
