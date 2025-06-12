@@ -1,0 +1,11 @@
+{
+    "DESIGN_NAME": "afifo",
+    "VERILOG_FILES": "dir::rtl/*.sv",
+    "PNR_SDC_FILE" :"dir::rtl/*.sdc",
+    "SIGNOFF_SDC_FILE" :"dir::rtl/*.sdc",
+    "CLOCK_PORT": ["i_rclk", "i_wclk"],
+    "FP_PDN_VOFFSET": 7,
+    "FP_PDN_HOFFSET": 7,
+    "FP_PDN_SKIPTRIM": true,
+    "SYNTH_AUTONAME": true
+}
